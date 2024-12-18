@@ -8,7 +8,7 @@ import {FaMoon} from 'react-icons/fa';
 export default function Header() {
     const path = useLocation().pathname;
   return (
-    <Navbar className='border-b-2'>
+    <Navbar className='border-b-2 '>
         <Link to="/" className='self-center whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white'>
         <span className='px-2 py-1 bg-gradient-to-r from-blue-500 via-teal-400 to-green-400 rounded-md text-white'>Byte</span>
         Blog
@@ -29,7 +29,7 @@ export default function Header() {
                 <FaMoon className='text-gray-700'/>
             </Button>
             <Link to="/sign-in">
-            <Button gradientDuoTone='greenToBlue'>
+            <Button gradientDuoTone='greenToBlue' outline>
                 Sign-in
             </Button>
             </Link>
