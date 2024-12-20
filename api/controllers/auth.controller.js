@@ -44,8 +44,8 @@ export const signup = async (req, res, next) => {
                 filename: ''
             }
         });
-        console.log(newUser);
-        console.log(req.file);
+        // console.log(newUser);
+        // console.log(req.file);
         if (req.file) {
             newUser.profilePic = {
                 url: req.file.path,

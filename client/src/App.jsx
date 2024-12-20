@@ -9,6 +9,8 @@ const About = lazy(() => import('./pages/About.jsx'));
 const Projects = lazy(() => import('./pages/Projects.jsx'));
 import Header from './components/Header.jsx';
 
+
+
 export default function App() {
   return (
     <BrowserRouter>
