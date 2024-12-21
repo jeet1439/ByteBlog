@@ -45,7 +45,7 @@ export default function FooterCom() {
             <Footer.Icon href='https://github.com/jeet1439' target='_blank' icon={BsGithub}/>
             <Footer.Icon href='#' icon={BsInstagram}/>
             <Footer.Icon href='#' icon={BsFacebook}/>
-            <Footer.Icon href='https://www.linkedin.com/in/jeetkangsabanik/' target='_blank' icon={BsLinkedin}/>
+            <Footer.Icon href='https://www.linkedin.com/in/jeetkangsabanik/'  icon={BsLinkedin}/>
         </div>
         </div>
         </div>

@@ -1,11 +1,13 @@
 import express from 'express';
+const app = express();
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+dotenv.config();
 import userRoute from './routes/user.route.js';
 import authRoutes from './routes/auth.route.js';
 
-const app = express();
-dotenv.config();
+
+
 
 
 mongoose

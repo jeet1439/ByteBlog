@@ -66,7 +66,7 @@ export default function SignUp() {
 
   return (
     <div className="min-h-screen bg-stone-50 flex items-center justify-center">
-      <div className="w-full max-w-md bg-white rounded-lg shadow-md p-8">
+      <div className="w-full max-w-md bg-white rounded-lg shadow-md p-8 mx-6">
         <h1 className="text-2xl font-bold text-center text-gray-800 mb-6">Welcome to ByteBlog</h1>
         <form className="space-y-4" encType='multipart/form-data' onSubmit={handleSubmit}>
           <div>
