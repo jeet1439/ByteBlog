@@ -1,83 +1,54 @@
-import React from "react";
-import { FaLinkedin, FaGithub, FaInstagram, FaTwitter } from "react-icons/fa";
-import { Link } from "react-router-dom";
-const Footer = () => {
+import { Footer } from 'flowbite-react';
+import { Link } from 'react-router-dom';
+import { BsFacebook, BsGithub, BsInstagram, BsLinkedin } from 'react-icons/bs';
+export default function FooterCom() {
   return (
-    <footer className="bg-gray-800 text-white py-6 px-6 w-full absolute bottom-0">
-      <div className="container mx-auto flex flex-col md:flex-row justify-between items-center">
-        {/* Brand Name */}
-        <Link to="/" className='self-center whitespace-nowrap text-2xl sm:text-2xl font-semibold dark:text-white'>
-  <span className='px-2 py-1 bg-gradient-to-r from-blue-500 via-teal-400 to-green-400 rounded-md text-white'>Byte</span>
-  Blog
-</Link>
+      <Footer container className='border border-t-8 border-teal-400 '>
+      <div className='w-full max-w-7xl mx-auto'>
+        <div className='grid-w-full justify-between sm:flex md:grid-cols-1'>
+            <div className='mt-5'>
+            <Link to="/" className='self-center whitespace-nowrap text-lg sm:text-2xl font-semibold dark:text-white'>
+        <span className='px-2 py-1 bg-gradient-to-r from-blue-500 via-teal-400 to-green-400 rounded-md text-white'>Byte</span>
+        Blog
+        </Link>
+            </div>
+            <div className='grid grid-cols-2 gap-8 sm:mt-4 sm:grid-cols-3 sm:gap-6'>
+                <div>
+                <Footer.Title title='About' />
+                <Footer.LinkGroup col>
+                <Footer.Link href='https://github.com/jeet1439' target='_blank' rel='noopener nofeferrer'>Projects</Footer.Link>
+                <Footer.Link href='/' target='_blank' rel='noopener nofeferrer'>ByteBlog</Footer.Link>
+                </Footer.LinkGroup>
+                </div>
 
+                <div>
+                <Footer.Title title='Follow us' />
+                <Footer.LinkGroup col>
+                <Footer.Link href='https://github.com/jeet1439' target='_blank' rel='noopener nofeferrer'>Github</Footer.Link>
+                <Footer.Link href='#' target='_blank' rel='noopener nofeferrer'>Discord</Footer.Link>
+                </Footer.LinkGroup>
+                </div>
 
-        {/* Footer Links */}
-        <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-6">
-          <a href="#about" className="hover:text-gray-400">About Us</a>
-          <a href="#services" className="hover:text-gray-400">Services</a>
-          <a href="#contact" className="hover:text-gray-400">Contact</a>
-          <a href="#privacy" className="hover:text-gray-400">Privacy Policy</a>
+                <div>
+                <Footer.Title title='Legal' />
+                <Footer.LinkGroup col>
+                <Footer.Link href='#'  >Privacy</Footer.Link>
+                <Footer.Link href='#' >Terms & Condition</Footer.Link>
+                </Footer.LinkGroup>
+                </div>
+            </div>
         </div>
-
-        {/* Social Icons */}
-        <div className="flex space-x-4 mt-4 md:mt-0">
-          <a
-            href="https://linkedin.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="LinkedIn"
-            className="hover:text-gray-400"
-          >
-            <FaLinkedin size={24} />
-          </a>
-          <a
-            href="https://github.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="GitHub"
-            className="hover:text-gray-400"
-          >
-            <FaGithub size={24} />
-          </a>
-          <a
-            href="https://instagram.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Instagram"
-            className="hover:text-gray-400"
-          >
-            <FaInstagram size={24} />
-          </a>
-          <a
-            href="https://twitter.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Twitter"
-            className="hover:text-gray-400"
-          >
-            <FaTwitter size={24} />
-          </a>
+        <Footer.Divider/>
+        <div className='w-full sm:flex sm:items-center sm:justify-between'>
+            <Footer.Copyright href='#' by="ByteBlog" year={new Date().getFullYear()}/>
+        <div className='flex gap-6 sm:mt-0 mt-3 sm:justify-center'>
+            <Footer.Icon href='https://github.com/jeet1439' target='_blank' icon={BsGithub}/>
+            <Footer.Icon href='#' icon={BsInstagram}/>
+            <Footer.Icon href='#' icon={BsFacebook}/>
+            <Footer.Icon href='https://www.linkedin.com/in/jeetkangsabanik/' target='_blank' icon={BsLinkedin}/>
         </div>
-      </div>
-
-      {/* Bottom Section */}
-      <div className="mt-6 text-center text-sm text-gray-400">
-        <p>&copy; {new Date().getFullYear()} BrandName. All rights reserved.</p><br />
-        <p className="mt-1">
-          Made by &nbsp;&nbsp;
-          <a
-            href="#"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-gray-300 hover:text-white"
-          >
-            Jeet
-          </a>
-        </p>
-      </div>
-    </footer>
+        </div>
+        </div>
+      </Footer>
   );
-};
-
-export default Footer;
+}

@@ -8,6 +8,7 @@ const Dashboard = lazy(() => import('./pages/Dashboard.jsx'));
 const About = lazy(() => import('./pages/About.jsx'));
 const Projects = lazy(() => import('./pages/Projects.jsx'));
 import Header from './components/Header.jsx';
+import FooterCom from './components/Footer.jsx';
 
 
 
@@ -23,6 +24,7 @@ export default function App() {
         <Route path='/dashboard' element={<Dashboard />}/>
         <Route path='/Projects' element={<Projects />}/>
       </Routes>
+      <FooterCom/>
     </BrowserRouter>
   )
 }
