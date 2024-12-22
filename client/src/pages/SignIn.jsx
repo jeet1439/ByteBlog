@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import { Spinner, Modal, Button } from 'flowbite-react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { signInStart, signInSuccess, signInFaliure } from '../redux/user/userSlice';
 
 export default function SignIn() {
   const inputClass = "mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-teal-400 focus:border-teal-400 text-gray-900 invalid:focus:ring-red-500 invalid:focus:border-red-500";
 
   const [formData, setFormData] = useState({});
-  const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+  
+  const { loading , error: errorMessage } = useSelector(state => state.user);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -18,8 +21,11 @@ export default function SignIn() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if(!formData.email || !formData.password){
+      return dispatch(signInFaliure('Please fill all the fields'));
+    }
     try {
-      setLoading(true);
+      dispatch(signInStart());
       const res = await fetch('/api/auth/signin', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -27,21 +33,20 @@ export default function SignIn() {
       });
 
       const data = await res.json();
+
       if (res.ok) {
         console.log('Sign In Successful:', data);
-        setLoading(false);
+        dispatch(signInSuccess(data));
         navigate('/');
       } else {
         console.error('Sign In Failed:', data.message);
-        setErrorMessage(data.message || 'Invalid credentials. Please try again.');
+        dispatch(signInFaliure(data.message));
         setShowModal(true);
-        setLoading(false);
       }
     } catch (error) {
       console.error('Error:', error);
-      setErrorMessage('An unexpected error occurred. Please try again later.');
+      dispatch(signInFaliure(error.message));
       setShowModal(true);
-      setLoading(false);
     }
   };
 
@@ -118,7 +123,6 @@ export default function SignIn() {
           </div>
         </div>
       </Modal>
-
     </div>
   );
 }

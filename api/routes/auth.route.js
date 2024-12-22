@@ -5,7 +5,6 @@ import wrapAsync from '../utils/wrapAsync.js';
 import multer from 'multer';
 import { storage } from '../cloudConfog.js'; 
 
-
 const upload = multer({ storage });
 
 router.route("/signup")

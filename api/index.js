@@ -6,10 +6,6 @@ dotenv.config();
 import userRoute from './routes/user.route.js';
 import authRoutes from './routes/auth.route.js';
 
-
-
-
-
 mongoose
 .connect(process.env.MONGO_URL)
 .then(()=>{

@@ -22,7 +22,7 @@ export default function App() {
         <Route path='/sign-in' element={<SignIn />}/>
         <Route path='/sign-up' element={<SignUp />}/>
         <Route path='/dashboard' element={<Dashboard />}/>
-        <Route path='/Projects' element={<Projects />}/>
+        <Route path='/projects' element={<Projects />} />
       </Routes>
       <FooterCom/>
     </BrowserRouter>
