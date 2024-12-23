@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { FileInput, Spinner } from 'flowbite-react';
 import { useNavigate } from 'react-router-dom';
+import OAuth from '../components/OAuth';
 export default function SignUp() {
 
   const inputClass = "mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-teal-400 focus:border-teal-400 text-gray-900  invalid:focus:ring-red-500 invalid:focus:border-red-500";
@@ -66,7 +67,7 @@ export default function SignUp() {
 
   return (
     <div className="min-h-screen bg-stone-50 flex items-center justify-center">
-      <div className="w-full max-w-md bg-white rounded-lg shadow-md p-8 mx-6">
+      <div className="w-full max-w-md bg-white rounded-lg shadow-md p-8 mx-6 my-5">
         <h1 className="text-2xl font-bold text-center text-gray-800 mb-6">Welcome to ByteBlog</h1>
         <form className="space-y-4" encType='multipart/form-data' onSubmit={handleSubmit}>
           <div>
@@ -138,6 +139,7 @@ export default function SignUp() {
               <span className='pl-3'>Loading...</span></>
             ) : 'Sign Up'}
           </button>
+          <OAuth/>
         </form>
 
         <p className="text-sm text-center text-gray-600 mt-4">

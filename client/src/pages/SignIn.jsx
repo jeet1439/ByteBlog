@@ -3,6 +3,7 @@ import { Spinner, Modal, Button } from 'flowbite-react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { signInStart, signInSuccess, signInFaliure } from '../redux/user/userSlice';
+import OAuth from '../components/OAuth';
 
 export default function SignIn() {
   const inputClass = "mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-teal-400 focus:border-teal-400 text-gray-900 invalid:focus:ring-red-500 invalid:focus:border-red-500";
@@ -98,6 +99,7 @@ export default function SignIn() {
               'Sign In'
             )}
           </button>
+          <OAuth/>
         </form>
 
         <p className="text-sm text-center text-gray-600 mt-4">
