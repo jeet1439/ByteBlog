@@ -2,35 +2,21 @@ import React, { useState } from 'react'
 import { FileInput, Spinner } from 'flowbite-react';
 import { useNavigate } from 'react-router-dom';
 import OAuth from '../components/OAuth';
-export default function SignUp() {
 
-  const inputClass = "mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-teal-400 focus:border-teal-400 text-gray-900  invalid:focus:ring-red-500 invalid:focus:border-red-500";
+export default function SignUp() {
+  const inputClass = "mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-teal-400 focus:border-teal-400 text-gray-900 dark:bg-gray-700 dark:text-white dark:border-gray-600 dark:focus:ring-teal-400 dark:focus:border-teal-400 invalid:focus:ring-red-500 invalid:focus:border-red-500";
 
   const [formData, setFormData] = useState({});
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  
   const handleChange = (e) => {
     if (e.target.type === 'file') {
       setFormData({ ...formData, profilePic: e.target.files[0] });
     } else {
       setFormData({ ...formData, [e.target.id]: e.target.value });
     }
-  }
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     const res = await fetch('/api/auth/signup', {
-  //       method: 'POST',
-  //       headers: { 'Content-Type': 'application/json' },
-  //       body: JSON.stringify(formData),
-  //     });
-  //     const data = await res.json(); 
-  //     console.log('Success:', data); 
-  //   } catch (error) {
-  //     console.error('Error:', error);
-  //   }
-  // }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -42,6 +28,7 @@ export default function SignUp() {
     if (formData.profilePic) {
       formDataToSend.append("profilePic", formData.profilePic);
     }
+
     try {
       setLoading(true);
       const res = await fetch('/api/auth/signup', {
@@ -63,15 +50,13 @@ export default function SignUp() {
     }
   };
 
-
-
   return (
-    <div className="min-h-screen bg-stone-50 flex items-center justify-center">
-      <div className="w-full max-w-md bg-white rounded-lg shadow-md p-8 mx-6 my-5">
-        <h1 className="text-2xl font-bold text-center text-gray-800 mb-6">Welcome to ByteBlog</h1>
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900">
+      <div className="w-full max-w-md bg-white dark:bg-gray-800 rounded-lg shadow-md p-8 mx-6 my-5">
+        <h1 className="text-2xl font-bold text-center text-gray-800 dark:text-white mb-6">Welcome to ByteBlog</h1>
         <form className="space-y-4" encType='multipart/form-data' onSubmit={handleSubmit}>
           <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
               Name
             </label>
             <input
@@ -84,11 +69,10 @@ export default function SignUp() {
               onChange={handleChange}
               name='username'
             />
-
           </div>
 
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
               Email Address
             </label>
             <input
@@ -103,7 +87,7 @@ export default function SignUp() {
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
               Password
             </label>
             <input
@@ -116,8 +100,9 @@ export default function SignUp() {
               onChange={handleChange}
             />
           </div>
+
           <div>
-            <label htmlFor="profile-pic" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="profile-pic" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
               Profile Picture
             </label>
             <FileInput
@@ -129,20 +114,22 @@ export default function SignUp() {
               onChange={handleChange}
             />
           </div>
+
           <button
             type="submit"
             disabled={loading}
             className="w-full bg-gradient-to-r from-blue-500 via-teal-400 to-green-400 text-white font-semibold py-2 px-4 rounded-md hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-400">
-            { loading ? (
+            {loading ? (
               <>
-              <Spinner size='sm'/>
-              <span className='pl-3'>Loading...</span></>
+                <Spinner size='sm' />
+                <span className='pl-3'>Loading...</span>
+              </>
             ) : 'Sign Up'}
           </button>
-          <OAuth/>
+          <OAuth />
         </form>
 
-        <p className="text-sm text-center text-gray-600 mt-4">
+        <p className="text-sm text-center text-gray-600 dark:text-gray-300 mt-4">
           Already have an account?{' '}
           <a href="/sign-in" className="text-teal-500 hover:underline">
             Log in
