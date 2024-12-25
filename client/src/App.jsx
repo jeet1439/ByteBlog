@@ -2,6 +2,7 @@ import React, { lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Header from './components/Header.jsx';
 import FooterCom from './components/Footer.jsx';
+import PrivateRoute from './components/PrivateRoute.jsx';
 
 // Lazily load the pages
 const Home = lazy(() => import('./pages/Home.jsx'));
@@ -21,7 +22,9 @@ export default function App() {
           <Route path='/about' element={<About />} />
           <Route path='/sign-in' element={<SignIn />} />
           <Route path='/sign-up' element={<SignUp />} />
+          <Route element={<PrivateRoute/>}>
           <Route path='/dashboard' element={<Dashboard />} />
+          </Route>
           <Route path='/projects' element={<Projects />} />
         </Routes>
       </Suspense>
