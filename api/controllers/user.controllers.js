@@ -1,3 +1,38 @@
-export const test = (req, res) =>{
-    res.json({message: "working test route"});
-}
+import User from "../models/user.model.js";
+import bcryptjs from "bcryptjs";
+import { errorHandeler } from "../utils/error.js";
+
+export const test = (req, res) => {
+  res.json({ message: "Working test route" });
+};
+
+export const updateUser = async (req, res, next) => {
+  if (req.user.id !== req.params.userId) {
+    return next(errorHandeler(403, "Not allowed to update"));
+  }
+
+  const updates = { ...req.body };
+
+  if (updates.password) {
+    if (updates.password.length < 6) {
+      return next(errorHandeler(400, "Password must be at least 6 characters"));
+    }
+    updates.password = bcryptjs.hashSync(updates.password, 10);
+  }
+
+  if (req.file) {
+    updates.profilePic = { url: req.file.path, filename: req.file.filename };
+  }
+
+  try {
+    const updatedUser = await User.findByIdAndUpdate(req.params.userId, { $set: updates }, { new: true });
+    if (!updatedUser) {
+      return next(errorHandeler(404, "User not found"));
+    }
+
+    const { password, ...rest } = updatedUser._doc;
+    res.status(200).json({ ...rest, token: req.user.token }); // Return the token for session continuity
+  } catch (error) {
+    next(error);
+  }
+};
