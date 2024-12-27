@@ -1,14 +1,17 @@
-import { Alert, Button, TextInput } from "flowbite-react";
+import { Alert, Button, Modal, Spinner, TextInput } from "flowbite-react";
 import { useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { updateStart, updateSuccess, updateFailure } from "../redux/user/userSlice";
+import { updateStart, updateSuccess, updateFailure ,deleteUserStart, deleteUserSuccess, deleteuserFailure} from "../redux/user/userSlice";
 import { useNavigate } from "react-router-dom";
+import { HiOutlineExclamationCircle } from "react-icons/hi";
 
 export default function DashProfile() {
-  const { currentUser } = useSelector((state) => state.user);
+  const { currentUser, error, loading } = useSelector((state) => state.user);
   const [imageFileUrl, setImageFileUrl] = useState(null);
   const [updatemsg, setUpdateMsg] = useState(null);
   const [errorMsg, setErrormsg] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+
   const filePickerRef = useRef();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -23,6 +26,10 @@ export default function DashProfile() {
   const handleInputChange = (e) => {
     if (e.target.type === "file") {
       const file = e.target.files[0];
+      if (file.size > 2 * 1024 * 1024) { 
+        setErrormsg("File size exceeds 2MB");
+        return;
+      }
       setFormData({ ...formData, profilePic: file });
       setImageFileUrl(URL.createObjectURL(file));
     } else {
@@ -69,11 +76,28 @@ export default function DashProfile() {
       dispatch(updateFailure());
     }
   };
-
+  const handleDeleteUser = async(req, res, next) => {
+  setShowModal(false);
+  try{
+    dispatch(deleteUserStart());
+    const res = await fetch(`/api/user/delete/${currentUser._id}`,{
+      method: 'DELETE',
+    });
+   const data = await res.json();
+   if(!res.ok){
+    dispatch(deleteuserFailure(data.message));
+   }else{
+    dispatch(deleteUserSuccess(data));
+   }
+  }catch(error){
+    dispatch(deleteuserFailure(error.message));
+  }
+  }
   return (
     <div className="max-w-lg mx-auto p-3 w-full">
       {updatemsg && <Alert color="success" className="mt-5">{updatemsg}</Alert>}
       {errorMsg && <Alert color="failure" className="mt-5">{errorMsg}</Alert>}
+      {error && <Alert color="failure" className="mt-5">{error}</Alert>}
       <h1 className="my-7 text-center font-semibold text-3xl">Profile</h1>
       <form className="flex flex-col gap-4" encType="multipart/form-data" onSubmit={handleSubmit}>
         <input type="file" accept="image/*" onChange={handleInputChange} ref={filePickerRef} hidden />
@@ -109,17 +133,37 @@ export default function DashProfile() {
         <TextInput
           type="password"
           id="password"
-          placeholder="Password"
+          placeholder="Password(at least 6 characters)"
+          required
           onChange={handleInputChange}
         />
+        
         <Button type="submit" gradientDuoTone="purpleToBlue" outline>
-          Update
+          {loading ? (
+                        <>
+                          <Spinner size='sm' />
+                          <span className='pl-3'>Loading...</span>
+                        </>
+                      ) : 'Update'}
         </Button>
       </form>
       <div className="text-red-500 flex justify-between mt-5">
-        <span className="cursor-pointer"></span>
-        <span className="cursor-pointer"></span>
+        <span onClick={()=> setShowModal(true)} className="cursor-pointer hover:underline">Delete Account</span>
+        <span className="cursor-pointer hover:underline">Sign out</span>
       </div>
+      <Modal show={showModal} onClose={() => setShowModal(false)} popup size="md">
+  <Modal.Header/>
+  <Modal.Body>
+    <div className="text-center">
+      <HiOutlineExclamationCircle className="h-14 w-14 text-gray-400 dark:text-gray-200 mb-4 mx-auto"/>
+      <h3 className="mb-5 text-lg text-gray-500 dark:text-gray-400">Are you sure you want to delete yout account ?</h3>
+    </div>
+    <div className="flex justify-center gap-4">
+    <Button color="failure" onClick={handleDeleteUser}>Yes, Delete</Button>
+    <Button color='gray' onClick={() => setShowModal(false)} >No, Cancel</Button>
+    </div>
+  </Modal.Body>
+</Modal>
     </div>
   );
 }

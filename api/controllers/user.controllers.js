@@ -12,8 +12,12 @@ export const updateUser = async (req, res, next) => {
   }
 
   const updates = { ...req.body };
-
+  // console.log(updates);
+  
   if (updates.password) {
+    if(updates.password === ' '){
+      return next(errorHandeler(400, "Password could not be blank"));
+    }
     if (updates.password.length < 6) {
       return next(errorHandeler(400, "Password must be at least 6 characters"));
     }
@@ -31,8 +35,20 @@ export const updateUser = async (req, res, next) => {
     }
 
     const { password, ...rest } = updatedUser._doc;
-    res.status(200).json({ ...rest, token: req.user.token }); // Return the token for session continuity
+    res.status(200).json({ ...rest, token: req.user.token });
   } catch (error) {
     next(error);
   }
+};
+
+export const deleteUser = async (req, res, next) =>{
+ if(req.user.id != req.params.userId){
+  return next(errorHandeler(403, 'you are not allowed to delete'));
+ }
+ try{
+    await User.findByIdAndDelete(req.params.userId);
+    res.status(200).json('User has been deleted');
+ }catch(error){
+  next(error);
+ }
 };
