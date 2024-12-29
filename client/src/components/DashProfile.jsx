@@ -1,7 +1,7 @@
 import { Alert, Button, Modal, Spinner, TextInput } from "flowbite-react";
 import { useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { updateStart, updateSuccess, updateFailure ,deleteUserStart, deleteUserSuccess, deleteuserFailure} from "../redux/user/userSlice";
+import { updateStart, updateSuccess, updateFailure ,deleteUserStart, deleteUserSuccess, deleteuserFailure, signoutSuccess} from "../redux/user/userSlice";
 import { useNavigate } from "react-router-dom";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 
@@ -93,6 +93,21 @@ export default function DashProfile() {
     dispatch(deleteuserFailure(error.message));
   }
   }
+  const handleSignout = async () => {
+    try{
+       const res = await fetch('/api/user/signout',{
+        method: 'POST',
+       });
+       const data = await res.json();
+       if(!res.ok){
+        console.log(data.message);
+       }else{
+       dispatch(signoutSuccess());
+       }
+    }catch(error){
+      console.log(error.message);
+    }
+  }
   return (
     <div className="max-w-lg mx-auto p-3 w-full">
       {updatemsg && <Alert color="success" className="mt-5">{updatemsg}</Alert>}
@@ -149,7 +164,7 @@ export default function DashProfile() {
       </form>
       <div className="text-red-500 flex justify-between mt-5">
         <span onClick={()=> setShowModal(true)} className="cursor-pointer hover:underline">Delete Account</span>
-        <span className="cursor-pointer hover:underline">Sign out</span>
+        <span onClick={handleSignout} className="cursor-pointer hover:underline">Sign out</span>
       </div>
       <Modal show={showModal} onClose={() => setShowModal(false)} popup size="md">
   <Modal.Header/>
