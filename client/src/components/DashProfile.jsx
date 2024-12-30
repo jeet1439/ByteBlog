@@ -2,7 +2,7 @@ import { Alert, Button, Modal, Spinner, TextInput } from "flowbite-react";
 import { useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { updateStart, updateSuccess, updateFailure ,deleteUserStart, deleteUserSuccess, deleteuserFailure, signoutSuccess} from "../redux/user/userSlice";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 
 export default function DashProfile() {
@@ -153,7 +153,7 @@ export default function DashProfile() {
           onChange={handleInputChange}
         />
         
-        <Button type="submit" gradientDuoTone="purpleToBlue" outline>
+        <Button type="submit" gradientDuoTone="purpleToBlue" disabled={loading} outline>
           {loading ? (
                         <>
                           <Spinner size='sm' />
@@ -161,6 +161,15 @@ export default function DashProfile() {
                         </>
                       ) : 'Update'}
         </Button>
+        {
+          currentUser.isAdmin && (
+            <Link to={'/create-post'}>
+            <Button type="button" gradientDuoTone="purpleToPink" className="w-full">
+              Create Post
+            </Button>
+            </Link>
+          )
+        }
       </form>
       <div className="text-red-500 flex justify-between mt-5">
         <span onClick={()=> setShowModal(true)} className="cursor-pointer hover:underline">Delete Account</span>
