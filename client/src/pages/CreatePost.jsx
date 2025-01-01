@@ -1,15 +1,83 @@
-import { Button, FileInput, Select, TextInput } from 'flowbite-react'
+import { Alert, Button, Select, Spinner, TextInput } from 'flowbite-react'
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-
+import { useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 export default function CreatePost() {
+  
+  const [imageFileUrl, setImageFileUrl] = useState(null);
+  const [errorMsg, setErrormsg] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+  const filePickerRef = useRef();
+  
+  const [formData, setFormData] = useState({
+    title: "",
+    category: "",
+    content: "",
+    coverPhoto: null,
+  });
+  const handleInputChange = (e) => {
+    if (e.target.type === "file") {
+      const file = e.target.files[0];
+      if (file.size > 2 * 1024 * 1024) { 
+        setErrormsg("File size exceeds 2MB");
+        return;
+      }
+      setFormData({ ...formData, coverPhoto: file });
+      setImageFileUrl(URL.createObjectURL(file));
+    } else {
+      setFormData({ ...formData, [e.target.id]: e.target.value });
+    }
+  };
+  const handleEditorChange = (value) => {
+    setFormData({ ...formData, content: value });
+  };
+ const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formDataToSend = new FormData();
+    formDataToSend.append("title", formData.title);
+    formDataToSend.append("category", formData.category);
+    formDataToSend.append("content", formData.content);
+    if (formData.coverPhoto) {
+      formDataToSend.append("coverPhoto", formData.coverPhoto);
+    }
+    try {
+      setIsLoading(true);
+      const res = await fetch("/api/post/create", {
+        method: "POST",
+        body: formDataToSend,
+      });
+      const postData = await res.json();
+
+      if (!res.ok) {
+        setErrormsg(postData.message);
+        setIsLoading(false);
+        setTimeout(() => {
+          setErrormsg(null);
+        }, 4000);
+
+        return;
+      }
+      else{
+        setErrormsg(null);
+        setIsLoading(false);
+        navigate(`/post/${postData.slug}`);
+      }
+    } catch (error) {
+      setErrormsg(error);
+      setIsLoading(false);
+      console.error("Error:", error);
+    }
+  };
   return (
     <div className='p-3 max-w-3xl mx-auto min-h-screen'>
       <h1 className='text-center text-3xl my-7 font-semibold'>Create a post</h1>
-      <form className='flex flex-col gap-4 mb-20'>
+      {errorMsg && <Alert color="failure" className="my-5">{errorMsg}</Alert> }
+      <form className='flex flex-col gap-4 mb-20' onSubmit={handleSubmit}>
         <div className='flex flex-col gap-4 sm:flex-row justify-between'>
-            <TextInput type='text' placeholder='Title' required id='title' className='flex-1'/>
-            <Select>
+            <TextInput type='text' placeholder='Title' required id='title' className='flex-1' onChange={handleInputChange} />
+            <Select id="category" onChange={handleInputChange} >
                 <option value="uncatagorized">Select a catagory</option>
                 <option value="javascript">JavaScript</option>
                 <option value="reactjs">React.js</option>
@@ -18,12 +86,26 @@ export default function CreatePost() {
                 <option value="tailwindcss">Tailwind</option>
             </Select>
         </div>
-        <div className='flex gap-4 items-center justify-between border-2 border-teal-500 rounded p-3'>
-         <FileInput type='file' accept='images/*'/>
-         <Button type='button' gradientDuoTone='purpleToBlue' size='sm' outline>Upload</Button>
+        <div className='flex gap-4 items-center justify-between border-2 border-teal-500 rounded p-3'
+         onClick={()=>filePickerRef.current.click()}>
+        <input type='file' accept='images/*' onChange={handleInputChange} ref={filePickerRef} hidden/>
+         { imageFileUrl? (<img
+              src={imageFileUrl}
+              alt="coverphoto"
+              className="w-full h-64 rounded object-cover mx-auto"/> 
+            ) : ( 
+             <img src="https://www.freeiconspng.com/uploads/upload-icon-3.png" alt="uploadphoto"
+             className=" h-32 rounded object-cover mx-auto"
+            />
+             )}
+         
         </div>
-        <ReactQuill theme="snow" placeholder="What's on your mind..." className='h-72 mb-12'/>
-        <Button type='submit' gradientDuoTone="purpleToBlue" >Publish</Button>
+        <ReactQuill theme="snow" placeholder="What's on your mind..." className='h-72 mb-12' required onChange={handleEditorChange}/>
+        <Button type='submit' gradientDuoTone="purpleToBlue" disabled={isLoading}>
+          {isLoading ? ( <> <Spinner size='sm' /> <span className='pl-3'>Publishing...</span>
+                    </>
+                  ) : 'Publish'}
+        </Button>
       </form>
     </div>
   )

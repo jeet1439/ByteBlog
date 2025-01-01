@@ -14,7 +14,7 @@ const postSchema = new mongoose.Schema(
             required: true,
             unique: true,
         },
-        PostImage: {
+        coverPhoto: {
             url:{
                 type: String,
                 default: 'https://www.blogtyrant.com/wp-content/uploads/2017/02/how-to-write-a-good-blog-post.png',
