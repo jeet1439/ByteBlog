@@ -75,3 +75,41 @@ export const deletePost = async(req, res, next) => {
     next(error);
   }
 };
+
+export const updatePost = async (req, res, next) => {
+    if (!req.user.isAdmin && req.user.id !== req.params.userId) {
+        return next(new Error("You are not allowed to update the post"));
+    }
+
+    try {
+        // Prepare the data to update
+        let updatedData = {
+            title: req.body.title,
+            content: req.body.content,
+            category: req.body.category,
+        };
+
+        // If a new cover photo is uploaded, include it in the update
+        if (req.file) {
+            updatedData.coverPhoto = { 
+                url: req.file.path, 
+                filename: req.file.filename 
+            };
+        }
+
+        // Update the post with new data
+        const updatedPost = await Post.findByIdAndUpdate(
+            req.params.postId,
+            { $set: updatedData },
+            { new: true }
+        );
+
+        if (!updatedPost) {
+            return res.status(404).json({ message: "Post not found" });
+        }
+
+        res.status(200).json({ message: "Post updated successfully", post: updatedPost });
+    } catch (error) {
+        next(error);
+    }
+};

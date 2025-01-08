@@ -25,7 +25,6 @@ export default function DashPosts() {
         console.log(data.message);
        }else{
         setUserPosts((prev) => prev.filter((post) => post._id !== postIdToDelete));
-
        }
    } catch (error) {
     console.log(error.message);

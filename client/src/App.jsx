@@ -5,6 +5,7 @@ import FooterCom from './components/Footer.jsx';
 import PrivateRoute from './components/PrivateRoute.jsx';
 import OnlyAdminPrivate from './components/OnlyAdminPrivate.jsx';
 import CreatePost from './pages/CreatePost.jsx';
+import UpdatePost from './pages/UpdatePost.jsx';
 
 // Lazily load the pages
 const Home = lazy(() => import('./pages/Home.jsx'));
@@ -29,6 +30,7 @@ export default function App() {
           </Route>
           <Route element={<OnlyAdminPrivate/>}>
           <Route path='/create-post' element={<CreatePost />} />
+          <Route path='/update-post/:postId' element={<UpdatePost/>} />
           </Route>
           <Route path='/projects' element={<Projects />} />
         </Routes>
