@@ -1,17 +1,16 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import {Button, Modal, Table, TableCell} from 'flowbite-react';
+import {Button, Modal, Table} from 'flowbite-react';
 import { HiOutlineExclamationCircle } from "react-icons/hi";
-
+import { FaCheck, FaTimes } from 'react-icons/fa';
 export default function DashUsers() {
+
   const { currentUser } = useSelector((state) => state.user);
+
   const [ users, setUsers ] = useState([]);
   const [ showMore, setShowMore ] = useState(true);
   const [showModal , setShowModal] = useState(false);
   const [ userIdToDelete, setUserIdToDelete] = useState('');
-  // console.log(userPosts);
-  // console.log(currentUser);
-
   useEffect( () =>{
       const fetchUsers = async () =>{
         try{
@@ -23,12 +22,12 @@ export default function DashUsers() {
              setShowMore(false);
             }
           }
-        } catch(error){
+        } catch(error){            
           console.log(error.message)
         }
       };
       if(currentUser.isAdmin) {
-        fetchUsers();
+        fetchUsers(); 
       }
   },[currentUser._id]);
 
@@ -58,21 +57,21 @@ export default function DashUsers() {
         <Table.Head>
               <Table.HeadCell className="w-36">Created at</Table.HeadCell>
               <Table.HeadCell className="w-36">User image</Table.HeadCell>
-              <Table.HeadCell className="w-80">Username</Table.HeadCell>
+              <Table.HeadCell className="w-64">Username</Table.HeadCell>
               <Table.HeadCell className="w-20">Email</Table.HeadCell>
-              <Table.HeadCell className="w-36">Admin</Table.HeadCell>
+              <Table.HeadCell className="w-20">Admin</Table.HeadCell>
               <Table.HeadCell className="w-20">Delete</Table.HeadCell>
         </Table.Head>
         <Table.Body>
         {users.map((user) => (
                 <Table.Row key={user._id} className="bg-while dark:broder-gray-700 dark:bg-gray-800">
-                  <Table.Cell>{new Date(user.createdAt).toLocaleDateString()}</Table.Cell>
+                  <Table.Cell>{new Date(user.updatedAt).toLocaleDateString()}</Table.Cell>
                   <Table.Cell>
                     <img src={user.profilePic?.url} alt="profile pic" className="w-20 h-10 object-cover rounded-sm bg-gray-500" />
                   </Table.Cell>
                   <Table.Cell className="font-medium text-gray-900 dark:text-white">{user.username}</Table.Cell>
                   <Table.Cell>{user.email}</Table.Cell>
-                  <Table.Cell>{user.isAdmin}</Table.Cell>
+                  <Table.Cell>{user.isAdmin? (<FaCheck className="text-green-500" />) : (<FaTimes className="text-red-500" />)}</Table.Cell>
                   <Table.Cell>
                     <span onClick={() => {
                       setShowModal(true);
