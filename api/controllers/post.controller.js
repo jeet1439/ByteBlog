@@ -1,4 +1,4 @@
-import { errorHandeler } from "../utils/error.js"
+import { errorHandeler } from "../utils/error.js";
 import Post from '../models/post.model.js';
 
 export const create = async (req, res, next) =>{
@@ -35,7 +35,8 @@ export const getposts = async(req, res, next) =>{
     const posts = await Post.find({
         ...(req.query.userId && { userId: req.query.userId }),
         ...(req.query.category && { category: req.query.category }),
-        ...(req.query.slug && { slug: req.query.slug }),
+        // ...(req.query.slug && { slug: req.query.slug }),
+        ...(req.query.postslug && { slug: req.query.postslug }),
         ...(req.query.postId && { _id: req.query.postId }),
         ...(req.query.searchTerm && { 
             $or: [

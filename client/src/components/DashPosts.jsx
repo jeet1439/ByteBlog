@@ -83,7 +83,7 @@ export default function DashPosts() {
                 <Table.Row key={post._id} className="bg-while dark:broder-gray-700 dark:bg-gray-800">
                   <Table.Cell>{new Date(post.updatedAt).toLocaleDateString()}</Table.Cell>
                   <Table.Cell>
-                    <Link to={`post/${post.slug}`}>
+                    <Link to={`/post/${post.slug}`}>
                     <img src={post.coverPhoto?.url} alt="Post Cover" className="w-20 h-10 object-cover rounded-sm bg-gray-500" />
                     </Link>
                   </Table.Cell>

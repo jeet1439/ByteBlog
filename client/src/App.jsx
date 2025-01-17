@@ -6,7 +6,7 @@ import PrivateRoute from './components/PrivateRoute.jsx';
 import OnlyAdminPrivate from './components/OnlyAdminPrivate.jsx';
 import CreatePost from './pages/CreatePost.jsx';
 import UpdatePost from './pages/UpdatePost.jsx';
-
+import ScrollToTop from './components/ScrollToTop.jsx';
 // Lazily load the pages
 const Home = lazy(() => import('./pages/Home.jsx'));
 const SignIn = lazy(() => import('./pages/SignIn.jsx'));
@@ -19,8 +19,9 @@ const PostPage = lazy(() => import('./pages/PostPage.jsx'));
 export default function App() {
   return (
     <BrowserRouter>
+    <ScrollToTop/>
       <Header />
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<div className='min-h-screen'>Loading...</div>}>
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/about' element={<About />} />
