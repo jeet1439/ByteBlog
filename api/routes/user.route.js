@@ -1,5 +1,5 @@
 import express from 'express';
-import { deleteUser, getUsers, signout, test, updateUser } from '../controllers/user.controllers.js';
+import { deleteUser, getUser, getUsers, signout, test, updateUser } from '../controllers/user.controllers.js';
 import { verifyToken } from '../utils/verifyUser.js';
 import multer from 'multer';
 import { storage } from '../cloudConfog.js';
@@ -11,5 +11,5 @@ router.put('/update/:userId', verifyToken,upload.single('profilePic'), updateUse
 router.delete('/delete/:userId', verifyToken, deleteUser);
 router.post('/signout', signout);
 router.get('/getusers', verifyToken, getUsers);
-
+router.get('/:userId', getUser);
 export default router;
