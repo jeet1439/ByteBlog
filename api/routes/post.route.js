@@ -19,5 +19,4 @@ router.put(
     upload.single('coverPhoto'),
     updatePost
 );
-
 export default router;

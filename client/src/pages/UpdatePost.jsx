@@ -126,7 +126,8 @@ export default function UpdatePost() {
 
         setErrormsg(null);
         setIsLoading(false);
-        navigate(`/post/${postId}`);
+        // navigate(`/post/${postId}`);
+        navigate(`/dashboard?tab=posts`);
     } catch (error) {
         setErrormsg(error.message);
         setIsLoading(false);
