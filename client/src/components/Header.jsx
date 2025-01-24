@@ -7,7 +7,7 @@ import { FaMoon, FaSun } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleTheme } from '../redux/theme/themeSlice';
 import { signoutSuccess } from '../redux/user/userSlice';
-
+import  logo  from '../assets/logo.png';
 
 export default function Header() {
     const path = useLocation().pathname;
@@ -33,10 +33,22 @@ export default function Header() {
 
     return (
         <Navbar className='border-b-2 '>
-            <Link to="/" className='self-center whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white'>
-                <span className='px-2 py-1 bg-gradient-to-r from-blue-500 via-teal-400 to-green-400 rounded-md text-white'>Byte</span>
-                Blog
+            <Link to="/" className='self-center whitespace-nowrap dark:bg-gray-200 rounded-md'>
+                <img src={logo} alt="Logo" className="w-32" />
             </Link>
+            <Navbar.Collapse>
+                <Navbar.Link active={path === "/"} as={'div'}>
+                    <Link to='/'>Home</Link>
+                </Navbar.Link>
+                <Navbar.Link active={path === "/community"} as={'div'}>
+                    <Link to='/community'>Community</Link>
+                </Navbar.Link>
+                <Navbar.Link active={path === "/projects"} as={'div'}>
+                    <Link to='/projects'>Projects</Link>
+                </Navbar.Link>
+            </Navbar.Collapse>
+            
+            <div className='flex gap-2 md:order-2'>
             <form>
                 <TextInput
                     type='text'
@@ -48,10 +60,8 @@ export default function Header() {
             <Button className='w-12 h-10 lg:hidden border-2 border-gray' color='grey' pill>
                 <AiOutlineSearch />
             </Button>
-            <div className='flex gap-2 md:order-2'>
                 <Button className='border-2 border-grey  sm:inline' color='grey' pill
-                    onClick={() => dispatch(toggleTheme())}
-                >
+                    onClick={() => dispatch(toggleTheme())}>
                     {theme === 'light' ? <FaSun className='text-gray-700 ' /> : <FaMoon className='text-gray-700 dark:text-white' />}
                 </Button>
                 {currentUser ? (
@@ -85,20 +95,11 @@ export default function Header() {
                         </Button>
                     </Link>
                 )}
-
-                <Navbar.Toggle />
+                <Navbar.Toggle/>
             </div>
-            <Navbar.Collapse>
-                <Navbar.Link active={path === "/"} as={'div'}>
-                    <Link to='/'>Home</Link>
-                </Navbar.Link>
-                <Navbar.Link active={path === "/about"} as={'div'}>
-                    <Link to='/about'>About</Link>
-                </Navbar.Link>
-                <Navbar.Link active={path === "/projects"} as={'div'}>
-                    <Link to='/projects'>Projects</Link>
-                </Navbar.Link>
-            </Navbar.Collapse>
+            
+
+
         </Navbar>
     )
 }

@@ -1,15 +1,15 @@
 import { Footer } from 'flowbite-react';
 import { Link } from 'react-router-dom';
 import { BsFacebook, BsGithub, BsInstagram, BsLinkedin } from 'react-icons/bs';
+import logo from '../assets/logo.png';
 export default function FooterCom() {
   return (
-      <Footer container className='border border-t-8 border-teal-400 '>
+      <Footer container className='border-none border-t-0 rounded-none'>
       <div className='w-full max-w-7xl mx-auto'>
         <div className='grid-w-full justify-between sm:flex md:grid-cols-1'>
             <div className='mt-5'>
-            <Link to="/" className='self-center whitespace-nowrap text-lg sm:text-2xl font-semibold dark:text-white'>
-        <span className='px-2 py-1 bg-gradient-to-r from-blue-500 via-teal-400 to-green-400 rounded-md text-white'>Byte</span>
-        Blog
+            <Link to="/" className='self-center whitespace-nowrap'>
+         <img src={logo} alt="Logo" className="w-32" />
         </Link>
             </div>
             <div className='grid grid-cols-2 gap-8 sm:mt-4 sm:grid-cols-3 sm:gap-6'>

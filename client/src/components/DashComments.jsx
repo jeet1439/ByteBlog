@@ -49,7 +49,7 @@ export default function DashComments() {
   const handleDeleteComment = async () => {
     setShowModal(false);
    try {
-      const res = await fetch(`/api/comment/delete/${commentIdToDelete}`, {
+      const res = await fetch(`/api/comment/deleteComment/${commentIdToDelete}`, {
         method: 'DELETE',
       });
       const data = await res.json();
@@ -81,7 +81,7 @@ export default function DashComments() {
                 <Table.Row key={comment._id} className="bg-while dark:broder-gray-700 dark:bg-gray-800">
                   <Table.Cell>{new Date(comment.updatedAt).toLocaleDateString()}</Table.Cell>
                   <Table.Cell className="truncate">
-                    {comment.content}
+                  {comment.content.split(' ').slice(0, 6).join(' ')}{comment.content.split(' ').length > 6 && '...'}
                   </Table.Cell>
                   <Table.Cell className="font-medium text-gray-900 dark:text-white">{comment.likeNumber}</Table.Cell>
                   <Table.Cell>{comment.postId}</Table.Cell>
