@@ -1,4 +1,5 @@
 import User from "../models/user.model.js";
+import Post from "../models/post.model.js";
 import bcryptjs from "bcryptjs";
 import { errorHandeler } from "../utils/error.js";
 
@@ -46,12 +47,14 @@ export const deleteUser = async (req, res, next) =>{
   return next(errorHandeler(403, 'you are not allowed to delete'));
  }
  try{
+    await Post.deleteMany({ userId: req.params.userId  });
     await User.findByIdAndDelete(req.params.userId);
     res.status(200).json('User has been deleted');
  }catch(error){
   next(error);
  }
 };
+
 
 export const signout = (req, res, next) =>{
   try{

@@ -3,7 +3,7 @@ import Post from '../models/post.model.js';
 
 export const create = async (req, res, next) =>{
     let coverPhoto = 'https://www.blogtyrant.com/wp-content/uploads/2017/02/how-to-write-a-good-blog-post.png';
-    if(!req.user.isAdmin){
+    if(!req.user){
         return next(errorHandeler(403, 'Not allowed to create a post'));
     }
     if (req.file) {
@@ -66,8 +66,8 @@ export const getposts = async(req, res, next) =>{
 }
 
 export const deletePost = async(req, res, next) => {
-  if(!req.user.isAdmin || req.user.id !== req.params.userId){
-    return next(errorHandeler(403, 'Not allowed to delete this'));
+  if(req.user.id !== req.params.userId){
+    return next(errorHandeler(403, 'Not Authorized'));
   }
   try {
     await Post.findByIdAndDelete(req.params.postId);
@@ -78,7 +78,7 @@ export const deletePost = async(req, res, next) => {
 };
 
 export const updatePost = async (req, res, next) => {
-    if (!req.user.isAdmin && req.user.id !== req.params.userId) {
+    if (!req.user && req.user.id !== req.params.userId) {
         return next(new Error("You are not allowed to update the post"));
     }
 

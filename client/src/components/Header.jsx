@@ -33,7 +33,7 @@ export default function Header() {
 
     return (
         <Navbar className='border-b-2 '>
-            <Link to="/" className='self-center whitespace-nowrap dark:bg-gray-200 rounded-md'>
+            <Link to="/" className='self-center whitespace-nowrap  rounded-md'>
                 <img src={logo} alt="Logo" className="w-32" />
             </Link>
             <Navbar.Collapse>
@@ -43,9 +43,14 @@ export default function Header() {
                 <Navbar.Link active={path === "/community"} as={'div'}>
                     <Link to='/community'>Community</Link>
                 </Navbar.Link>
-                <Navbar.Link active={path === "/projects"} as={'div'}>
-                    <Link to='/projects'>Projects</Link>
-                </Navbar.Link>
+                {
+                    currentUser ? ( <Navbar.Link active={path === "/create-post"} as={'div'}>
+                        <Link to='/create-post'>Create</Link>
+                    </Navbar.Link>) : ( <Navbar.Link active={path === "/create-post"} as={'div'}>
+                    <Link to='/sign-up'>Create</Link>
+                </Navbar.Link> )
+                }
+                
             </Navbar.Collapse>
             
             <div className='flex gap-2 md:order-2'>

@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Header from './components/Header.jsx';
 import FooterCom from './components/Footer.jsx';
 import PrivateRoute from './components/PrivateRoute.jsx';
-import OnlyAdminPrivate from './components/OnlyAdminPrivate.jsx';
+// import OnlyAdminPrivate from './components/OnlyAdminPrivate.jsx';
 import CreatePost from './pages/CreatePost.jsx';
 import UpdatePost from './pages/UpdatePost.jsx';
 import ScrollToTop from './components/ScrollToTop.jsx';
@@ -13,7 +13,6 @@ const SignIn = lazy(() => import('./pages/SignIn.jsx'));
 const SignUp = lazy(() => import('./pages/SignUp.jsx'));
 const Dashboard = lazy(() => import('./pages/Dashboard.jsx'));
 const About = lazy(() => import('./pages/About.jsx'));
-const Projects = lazy(() => import('./pages/Projects.jsx'));
 const PostPage = lazy(() => import('./pages/PostPage.jsx'));
 
 export default function App() {
@@ -30,11 +29,9 @@ export default function App() {
           <Route element={<PrivateRoute/>}>
           <Route path='/dashboard' element={<Dashboard />} />
           </Route>
-          <Route element={<OnlyAdminPrivate/>}>
           <Route path='/create-post' element={<CreatePost />} />
+          {/* <Route element={<OnlyAdminPrivate/>}></Route> */}
           <Route path='/update-post/:postId' element={<UpdatePost/>} />
-          </Route>
-          <Route path='/projects' element={<Projects />} />
           <Route path='/post/:postSlug' element={<PostPage/>} />
         </Routes>
       </Suspense>

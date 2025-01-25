@@ -126,8 +126,11 @@ export default function UpdatePost() {
 
         setErrormsg(null);
         setIsLoading(false);
-        // navigate(`/post/${postId}`);
-        navigate(`/dashboard?tab=posts`);
+        if (postData.post.slug) {
+          navigate(`/post/${postData.post.slug}`);
+      } else {
+          navigate(`/dashboard?tab=profile`);
+      }
     } catch (error) {
         setErrormsg(error.message);
         setIsLoading(false);
