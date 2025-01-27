@@ -31,13 +31,13 @@ export default function Home() {
   return (
     <div className="bg-gray-50 dark:bg-gray-900 min-h-screen transition-colors duration-300">
       {/* Hero Section */}
-      <section className="pt-20 pb-10">
+      <section className="pt-20 pb-5">
         <div className="container mx-auto text-center">
           <h1 className="text-4xl md:text-6xl font-bold mb-4">
-            Welcome to ByteBlog
+            Welcome to {"<ByteBlog/>"}
           </h1>
           <p className="text-lg md:text-xl">
-            Build something amazing with React and Tailwind CSS.
+           The Pulse of Innovation, Technology, and Beyond
           </p>
           <button className="mt-6 px-6 py-3 bg-white text-teal-600 font-semibold rounded-md shadow-md hover:bg-teal-100 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700">
             Get Started
@@ -75,7 +75,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-    
      { showBlogs === true ? (<div className='max-w-6xl mx-auto p-3 flex flex-col gap-8 py-7'>
         {posts && posts.length > 0 && (
           <div className='flex flex-col gap-6'>
@@ -86,7 +85,7 @@ export default function Home() {
               ))}
             </div>
             <Link
-              to={'/search'}
+              to={'/community'}
               className='text-lg text-gray-500 hover:underline text-center'
             >
               View all posts

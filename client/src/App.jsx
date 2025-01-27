@@ -7,6 +7,7 @@ import PrivateRoute from './components/PrivateRoute.jsx';
 import CreatePost from './pages/CreatePost.jsx';
 import UpdatePost from './pages/UpdatePost.jsx';
 import ScrollToTop from './components/ScrollToTop.jsx';
+import Search from './pages/Search.jsx';
 // Lazily load the pages
 const Home = lazy(() => import('./pages/Home.jsx'));
 const SignIn = lazy(() => import('./pages/SignIn.jsx'));
@@ -26,6 +27,7 @@ export default function App() {
           <Route path='/community' element={<About />} />
           <Route path='/sign-in' element={<SignIn />} />
           <Route path='/sign-up' element={<SignUp />}/>
+          <Route path='/search' element={<Search/>}/>
           <Route element={<PrivateRoute/>}>
           <Route path='/dashboard' element={<Dashboard />} />
           </Route>
