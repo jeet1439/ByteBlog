@@ -13,7 +13,7 @@ const Home = lazy(() => import('./pages/Home.jsx'));
 const SignIn = lazy(() => import('./pages/SignIn.jsx'));
 const SignUp = lazy(() => import('./pages/SignUp.jsx'));
 const Dashboard = lazy(() => import('./pages/Dashboard.jsx'));
-const About = lazy(() => import('./pages/About.jsx'));
+const Community = lazy(() => import('./pages/Community.jsx'));
 const PostPage = lazy(() => import('./pages/PostPage.jsx'));
 
 export default function App() {
@@ -24,7 +24,7 @@ export default function App() {
       <Suspense fallback={<div className='min-h-screen'>Loading...</div>}>
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/community' element={<About />} />
+          <Route path='/community' element={<Community />} />
           <Route path='/sign-in' element={<SignIn />} />
           <Route path='/sign-up' element={<SignUp />}/>
           <Route path='/search' element={<Search/>}/>

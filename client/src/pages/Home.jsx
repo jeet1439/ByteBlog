@@ -40,7 +40,7 @@ export default function Home() {
            The Pulse of Innovation, Technology, and Beyond
           </p>
           <button className="mt-6 px-6 py-3 bg-white text-teal-600 font-semibold rounded-md shadow-md hover:bg-teal-100 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700">
-            Get Started
+            <Link to="/community">Get Started</Link>
           </button>
         </div>
       </section>

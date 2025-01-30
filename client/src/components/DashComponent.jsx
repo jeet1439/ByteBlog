@@ -139,7 +139,7 @@ export default function DashComponent() {
                   <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800'>
                     <Table.Cell>
                       <img
-                        src={user.profilePicture}
+                        src={user.profilePic.url}
                         alt='user'
                         className='w-10 h-10 rounded-full bg-gray-500'
                       />
@@ -194,7 +194,7 @@ export default function DashComponent() {
                   <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800'>
                     <Table.Cell>
                       <img
-                        src={post.image}
+                        src={post.coverPhoto.url}
                         alt='user'
                         className='w-14 h-10 rounded-md bg-gray-500'
                       />

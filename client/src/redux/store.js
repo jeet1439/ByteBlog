@@ -12,7 +12,7 @@ const expireTransform = createTransform(
   },
   (outboundState, key) => {
     if (outboundState) {
-      const expirationTime =  43200 * 1000; //12hr
+      const expirationTime =  10800 * 1000; //12hr
       const isExpired = Date.now() - outboundState._persistTimestamp > expirationTime;
       if (isExpired) {
         return {

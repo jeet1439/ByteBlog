@@ -149,6 +149,7 @@ return (
                 <option value="javascript">JavaScript</option>
                 <option value="reactjs">React.js</option>
                 <option value="nextjs">nextjs</option>
+                <option value="technology">Technology</option>
                 <option value="webdev">web development</option>
                 <option value="tailwindcss">Tailwind</option>
             </Select>
