@@ -11,6 +11,9 @@ import commentRoutes from './routes/comment.route.js';
 import recommendationRoutes from './routes/recomandation.route.js';
 import cookieParser from 'cookie-parser';
 
+import path from 'path';
+const __dirname = path.resolve();
+
 mongoose
 .connect(process.env.MONGO_URL)
 .then(()=>{
@@ -27,8 +30,11 @@ app.use('/api/post', postRoutes);
 app.use('/api/comment', commentRoutes);
 app.use("/api/recommendations", recommendationRoutes);
 
-app.get('/', (req, res) => {
-    res.send("GET Request Called")
+app.use(express.static(path.join(__dirname, '/client/dist')));
+
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
 })
 
 app.listen(3000, ()=>{

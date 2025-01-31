@@ -147,7 +147,8 @@ return (
             <Select id="category" onChange={handleInputChange} value={formData.category}>
                 <option value="uncategorized">Select a category</option>
                 <option value="javascript">JavaScript</option>
-                <option value="reactjs">React.js</option>
+                <option value="frontend">Front End</option>
+                <option value="programming">Programming</option>
                 <option value="ai">AI</option>
                 <option value="nextjs">Next.js</option>
                 <option value="technology">Technology</option>
