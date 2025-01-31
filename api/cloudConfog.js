@@ -1,8 +1,11 @@
-import { v2 as cloudinary } from 'cloudinary';
+import cloudinaryPkg from 'cloudinary';  // Default import
 import { CloudinaryStorage } from 'multer-storage-cloudinary';
 
 import dotenv from 'dotenv';
 dotenv.config();
+
+// Destructure v2 from the default import
+const { v2: cloudinary } = cloudinaryPkg;
 
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
@@ -11,10 +14,10 @@ cloudinary.config({
 });
 
 const storage = new CloudinaryStorage({
-  cloudinary: cloudinary, 
+  cloudinary: cloudinary,
   params: {
     folder: 'Byte-blog',
-    allowed_formats: ['jpg', 'jpeg', 'png'], 
+    allowed_formats: ['jpg', 'jpeg', 'png'],
   },
 });
 
