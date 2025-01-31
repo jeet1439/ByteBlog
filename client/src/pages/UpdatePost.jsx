@@ -145,13 +145,17 @@ return (
         <div className='flex flex-col gap-4 sm:flex-row justify-between'>
             <TextInput type='text' placeholder='Title' required id='title' className='flex-1' onChange={handleInputChange} value={formData.title}/>
             <Select id="category" onChange={handleInputChange} value={formData.category}>
-                <option value="uncatagorized">Select a catagory</option>
+                <option value="uncategorized">Select a category</option>
                 <option value="javascript">JavaScript</option>
                 <option value="reactjs">React.js</option>
-                <option value="nextjs">nextjs</option>
+                <option value="ai">AI</option>
+                <option value="nextjs">Next.js</option>
                 <option value="technology">Technology</option>
-                <option value="webdev">web development</option>
-                <option value="tailwindcss">Tailwind</option>
+                <option value="webdev">Web Development</option>
+                <option value="cybersecurity">Cyber Security</option>
+                <option value="androiddev">Android Development</option>
+                <option value="systemdesign">System design</option>
+                <option value="webdesign">Web Design</option>
             </Select>
         </div>
         <div className='flex gap-4 items-center justify-between border-2 border-teal-500 rounded p-3'

@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { theme } from "flowbite-react";
 
 const initialState = {
-    theme: 'dark',
+    theme: 'light',
 }
 
 const themeSlice = createSlice({
@@ -10,7 +10,7 @@ const themeSlice = createSlice({
     initialState, 
     reducers: {
         toggleTheme: (state) =>{
-            state.theme =  state.theme === 'dark'? 'light' : 'dark';
+            state.theme =  state.theme === 'light'? 'dark' : 'light';
         },
     }
 });

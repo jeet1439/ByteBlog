@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+
 const postSchema = new mongoose.Schema(
     {
         userId: {
@@ -29,7 +30,11 @@ const postSchema = new mongoose.Schema(
             type: String,
             required: true,
             unique: true,
-        }
+        },
+        tags: {
+            type: [String],
+            default: [],
+        },
     }, {timestamps: true}
 );
 

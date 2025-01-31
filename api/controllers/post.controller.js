@@ -1,31 +1,78 @@
 import { errorHandeler } from "../utils/error.js";
 import Post from '../models/post.model.js';
 
-export const create = async (req, res, next) =>{
+// export const create = async (req, res, next) =>{
+//     let coverPhoto = 'https://www.blogtyrant.com/wp-content/uploads/2017/02/how-to-write-a-good-blog-post.png';
+//     if(!req.user){
+//         return next(errorHandeler(403, 'Not allowed to create a post'));
+//     }
+//     if (req.file) {
+//         coverPhoto = { url: req.file.path, filename: req.file.filename };
+//       }
+//     if(!req.body.title || !req.body.content){
+//         return next(errorHandeler(400, 'please provide all field'));
+//     }
+//     const slug = req.body.title.split(' ').join('-').toLowerCase().replace(/[^a-zA-Z0-9-]/g, '-');
+//     const newPost = new Post({
+//         ...req.body,
+//         slug,
+//         userId: req.user.id,
+//         coverPhoto,
+//     });
+//     try{
+//        const SavedPost = await newPost.save();
+//        res.status(201).json(SavedPost);
+//     }catch(error){
+//         next(error);
+//     }
+// }
+
+export const create = async (req, res, next) => {
     let coverPhoto = 'https://www.blogtyrant.com/wp-content/uploads/2017/02/how-to-write-a-good-blog-post.png';
-    if(!req.user){
+
+    if (!req.user) {
         return next(errorHandeler(403, 'Not allowed to create a post'));
     }
+
     if (req.file) {
         coverPhoto = { url: req.file.path, filename: req.file.filename };
-      }
-    if(!req.body.title || !req.body.content){
-        return next(errorHandeler(400, 'please provide all field'));
     }
-    const slug = req.body.title.split(' ').join('-').toLowerCase().replace(/[^a-zA-Z0-9-]/g, '-');
+
+    if (!req.body.title || !req.body.content) {
+        return next(errorHandeler(400, 'Please provide all fields'));
+    }
+
+    const slug = req.body.title
+        .split(' ')
+        .join('-')
+        .toLowerCase()
+        .replace(/[^a-zA-Z0-9-]/g, '-');
+
+    let tags = [];
+    try {
+        tags = JSON.parse(req.body.tags); // Convert string to array
+        if (!Array.isArray(tags)) {
+            return next(errorHandeler(400, 'Tags must be an array'));
+        }
+    } catch (error) {
+        return next(errorHandeler(400, 'Invalid tags format'));
+    }
+
     const newPost = new Post({
         ...req.body,
         slug,
         userId: req.user.id,
         coverPhoto,
+        tags,  // Add tags to the post model
     });
-    try{
-       const SavedPost = await newPost.save();
-       res.status(201).json(SavedPost);
-    }catch(error){
+
+    try {
+        const savedPost = await newPost.save();
+        res.status(201).json(savedPost);
+    } catch (error) {
         next(error);
     }
-}
+};
 
 export const getposts = async(req, res, next) =>{
     try{

@@ -10,6 +10,8 @@ export default function PostPage() {
     const [ error, setError ] = useState(false);
     const [post, setPost ] = useState(null);
     const [recentPosts, setRecentPosts] = useState(null);
+    const [ recommendedPosts, setRecommendedPosts ] = useState();
+
     useEffect(() => {
        const fetchPost = async () => {
         try {
@@ -48,7 +50,21 @@ export default function PostPage() {
 } catch (error) {
     console.log(error);
 }
-}, [])
+}, []);
+
+
+useEffect(() => {
+    if (post?._id) {
+        fetch(`/api/recommendations/${post._id}`) 
+            .then((res) => res.json())
+            .then((data) => setRecommendedPosts(data))
+            .catch((err) => console.error(err));
+    }
+}, [post]);
+
+
+
+
 if (loading) return (
     <div className="flex justify-center items-center min-h-screen">
    <Spinner size='xl'/>
@@ -82,6 +98,16 @@ if (loading) return (
      }
     </div>
   </div>
+  <div className="flex flex-col justify-center items-center mb-5">
+    <h1 className="text-xl mt-5">Recommended for you</h1>
+    <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-5 w-full max-w-5xl">
+        {recommendedPosts && 
+            recommendedPosts.map((post) => <PostCard key={post.post._id} post={post.post} />)
+        }
+    </div>
+</div>
+
+
   </main>
   );
 }
