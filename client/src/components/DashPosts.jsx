@@ -20,7 +20,7 @@ export default function DashPosts() {
           method: 'DELETE',
         }
        );
-       const data = res.json();
+       const data = await res.json();
        if(!res.ok){
         console.log(data.message);
        }else{
@@ -42,7 +42,7 @@ export default function DashPosts() {
           const data = await res.json()
           if(res.ok){
             setUserPosts(data.posts);
-            if(data.posts.length < 7){
+            if(data.posts.length < 9){
              setShowMore(false);
             }
           }
@@ -57,19 +57,20 @@ export default function DashPosts() {
 
   const handleShowMore = async () => {
     const startIndex = userPosts.length;
-    try{
-       const res = await fetch(`/api/post/getposts?userId=${currentUser._id}&startIndex=${startIndex}`);
-       const data = await res.json();
-       if(res.ok){
+    try {
+      const res = await fetch(`/api/post/getposts?${currentUser.isAdmin ? "" : `userId=${currentUser._id}&`}startIndex=${startIndex}&limit=9`);
+      const data = await res.json();
+      if (res.ok) {
         setUserPosts((prev) => [...prev, ...data.posts]);
-        if(data.posts.length < 9){
-          setShowMore(false);
+        if (data.posts.length < 9) {
+          setShowMore(false); 
         }
-       }
-    }catch(error){
+      }
+    } catch (error) {
       console.log(error.message);
     }
-  }
+  };
+  
   return (
     <div className="table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-300">
      {currentUser.isAdmin && userPosts.length > 0 ? (
