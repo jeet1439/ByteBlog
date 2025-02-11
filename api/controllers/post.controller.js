@@ -50,7 +50,7 @@ export const create = async (req, res, next) => {
 
     let tags = [];
     try {
-        tags = JSON.parse(req.body.tags); // Convert string to array
+        tags = JSON.parse(req.body.tags); 
         if (!Array.isArray(tags)) {
             return next(errorHandeler(400, 'Tags must be an array'));
         }
@@ -63,7 +63,7 @@ export const create = async (req, res, next) => {
         slug,
         userId: req.user.id,
         coverPhoto,
-        tags,  // Add tags to the post model
+        tags,  
     });
 
     try {

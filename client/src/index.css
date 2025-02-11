@@ -135,3 +135,12 @@ body{
   font-size: 0.9rem;
   color: #666;
 }
+@keyframes scan {
+  0% { transform: translateY(-100%); opacity: 0.2; }
+  50% { transform: translateY(100%); opacity: 0.5; }
+  100% { transform: translateY(-100%); opacity: 0.2; }
+}
+
+.animate-scan {
+  animation: scan 2s linear infinite;
+}
