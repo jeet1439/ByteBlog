@@ -33,48 +33,52 @@ export default function Home() {
       {/* Hero Section */}
       <section className="pt-20 pb-5">
         <div className="container mx-auto text-center">
-          <h1 className="text-4xl md:text-6xl font-bold mb-4">
-            Welcome to {"<ByteBlog/>"}
-          </h1>
+        <h1 className="text-4xl md:text-6xl font-bold mb-4">
+  Welcome to{" "}
+  <span className="font-bold bg-gradient-to-r from-blue-500 to-blue-900 bg-clip-text text-transparent">
+    {"<ByteBlog/>"}
+  </span>
+</h1>
           <p className="text-lg md:text-xl">
            The Pulse of Innovation, Technology, and Beyond
           </p>
+          <Link to="/community">
           <button className="mt-6 px-6 py-3 bg-white text-teal-600 font-semibold rounded-md shadow-md hover:bg-teal-100 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700">
-            <Link to="/community">Get Started</Link>
+            Get Started
           </button>
+          </Link>
         </div>
       </section>
 
-      {/* Features Section */}
       <section className="py-16">
-        <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Feature Card */}
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
-            <h2 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-teal-400">
-            AI-Powered Blog Summarizer 
-            </h2>
-            <p className="text-gray-700 dark:text-gray-300">
-            Provides concise summaries for quick understanding of content.
-            </p>
-          </div>
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
-            <h2 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-teal-400">
-            Content Recommendations
-            </h2>
-            <p className="text-gray-700 dark:text-gray-300">
-            AI powered personalized contents keeps you ahed from others 
-            </p>
-          </div>
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
-            <h2 className="text-2xl font-semibold mb-4  text-gray-900 dark:text-teal-400">
-              Data security
-            </h2>
-            <p className="text-gray-700 dark:text-gray-300">
-            Your information is safeguarded ensuring highest level of protection and privacy.
-            </p>
-          </div>
-        </div>
-      </section>
+  <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
+    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 transition-transform transform hover:scale-105">
+      <h2 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-teal-400">
+        AI-Powered Blog Summarizer
+      </h2>
+      <p className="text-gray-700 dark:text-gray-300">
+        Provides concise summaries for quick understanding of content.
+      </p>
+    </div>
+    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 transition-transform transform hover:scale-105">
+      <h2 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-teal-400">
+        Content Recommendations
+      </h2>
+      <p className="text-gray-700 dark:text-gray-300">
+        AI-powered personalized content keeps you ahead of others.
+      </p>
+    </div>
+    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 transition-transform transform hover:scale-105">
+      <h2 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-teal-400">
+        Data Security
+      </h2>
+      <p className="text-gray-700 dark:text-gray-300">
+        Your information is safeguarded, ensuring the highest level of protection and privacy.
+      </p>
+    </div>
+  </div>
+</section>
+
      { showBlogs === true ? (<div className='max-w-6xl mx-auto p-3 flex flex-col gap-8 py-7'>
         {posts && posts.length > 0 && (
           <div className='flex flex-col gap-6'>
