@@ -12,6 +12,7 @@ import recommendationRoutes from './routes/recomandation.route.js';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import path from 'path';
+import job from './lib/corn.js';
 const __dirname = path.resolve();
 
 mongoose
@@ -23,6 +24,7 @@ mongoose
     console.log(err); 
 })
 app.use(cors());
+job.start();
 app.use(express.json());
 app.use('/api/user', userRoute);
 app.use('/api/auth', authRoutes);
